@@ -52,6 +52,7 @@
     <Compile Include="CalculatorWindow.Designer.cs">
       <DependentUpon>CalculatorWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Consts.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Table.cs" />

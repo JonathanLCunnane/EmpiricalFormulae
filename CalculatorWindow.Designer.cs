@@ -40,6 +40,15 @@ namespace EmpiricalFormulae
             this.massButton = new System.Windows.Forms.Button();
             this.abundanceButton = new System.Windows.Forms.Button();
             this.addPromptLabel = new System.Windows.Forms.Label();
+            this.amountInputBox = new System.Windows.Forms.TextBox();
+            this.amountLabel = new System.Windows.Forms.Label();
+            this.selectPromptLabel = new System.Windows.Forms.Label();
+            this.selectorComboBox = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.unitSelectorComboBox = new System.Windows.Forms.ComboBox();
+            this.addButton = new System.Windows.Forms.Button();
+            this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,6 +57,7 @@ namespace EmpiricalFormulae
             this.mainMenu.BackColor = System.Drawing.SystemColors.Window;
             this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.modeToolStripMenuItem,
+            this.resetToolStripMenuItem,
             this.helpToolStripMenuItem});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
@@ -126,17 +136,98 @@ namespace EmpiricalFormulae
             // addPromptLabel
             // 
             this.addPromptLabel.AutoSize = true;
-            this.addPromptLabel.Location = new System.Drawing.Point(326, 27);
+            this.addPromptLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addPromptLabel.Location = new System.Drawing.Point(323, 26);
             this.addPromptLabel.Name = "addPromptLabel";
-            this.addPromptLabel.Size = new System.Drawing.Size(73, 13);
+            this.addPromptLabel.Size = new System.Drawing.Size(94, 16);
             this.addPromptLabel.TabIndex = 5;
-            this.addPromptLabel.Text = "Add MODE[0]";
+            this.addPromptLabel.Text = "Add MODE[0]:";
+            // 
+            // amountInputBox
+            // 
+            this.amountInputBox.Location = new System.Drawing.Point(326, 127);
+            this.amountInputBox.Name = "amountInputBox";
+            this.amountInputBox.Size = new System.Drawing.Size(100, 20);
+            this.amountInputBox.TabIndex = 6;
+            // 
+            // amountLabel
+            // 
+            this.amountLabel.AutoSize = true;
+            this.amountLabel.Location = new System.Drawing.Point(323, 111);
+            this.amountLabel.Name = "amountLabel";
+            this.amountLabel.Size = new System.Drawing.Size(74, 13);
+            this.amountLabel.TabIndex = 7;
+            this.amountLabel.Text = "Enter Amount:";
+            // 
+            // selectPromptLabel
+            // 
+            this.selectPromptLabel.AutoSize = true;
+            this.selectPromptLabel.Location = new System.Drawing.Point(323, 71);
+            this.selectPromptLabel.Name = "selectPromptLabel";
+            this.selectPromptLabel.Size = new System.Drawing.Size(87, 13);
+            this.selectPromptLabel.TabIndex = 8;
+            this.selectPromptLabel.Text = "Select MODE[0]:";
+            // 
+            // selectorComboBox
+            // 
+            this.selectorComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectorComboBox.FormattingEnabled = true;
+            this.selectorComboBox.Location = new System.Drawing.Point(326, 87);
+            this.selectorComboBox.Name = "selectorComboBox";
+            this.selectorComboBox.Size = new System.Drawing.Size(121, 21);
+            this.selectorComboBox.TabIndex = 9;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(433, 111);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(34, 13);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Units:";
+            // 
+            // unitSelectorComboBox
+            // 
+            this.unitSelectorComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.unitSelectorComboBox.FormattingEnabled = true;
+            this.unitSelectorComboBox.Items.AddRange(new object[] {
+            "g",
+            "mg",
+            "t"});
+            this.unitSelectorComboBox.Location = new System.Drawing.Point(436, 127);
+            this.unitSelectorComboBox.Name = "unitSelectorComboBox";
+            this.unitSelectorComboBox.Size = new System.Drawing.Size(121, 21);
+            this.unitSelectorComboBox.TabIndex = 11;
+            // 
+            // addButton
+            // 
+            this.addButton.Location = new System.Drawing.Point(326, 154);
+            this.addButton.Name = "addButton";
+            this.addButton.Size = new System.Drawing.Size(75, 23);
+            this.addButton.TabIndex = 12;
+            this.addButton.Text = "Add";
+            this.addButton.UseVisualStyleBackColor = true;
+            this.addButton.Click += new System.EventHandler(this.addButton_Click);
+            // 
+            // resetToolStripMenuItem
+            // 
+            this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
+            this.resetToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.resetToolStripMenuItem.Text = "Reset";
+            this.resetToolStripMenuItem.Click += new System.EventHandler(this.resetToolStripMenuItem_Click);
             // 
             // CalculatorWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 561);
+            this.Controls.Add(this.addButton);
+            this.Controls.Add(this.unitSelectorComboBox);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.selectorComboBox);
+            this.Controls.Add(this.selectPromptLabel);
+            this.Controls.Add(this.amountLabel);
+            this.Controls.Add(this.amountInputBox);
             this.Controls.Add(this.addPromptLabel);
             this.Controls.Add(this.abundanceButton);
             this.Controls.Add(this.massButton);
@@ -168,6 +259,15 @@ namespace EmpiricalFormulae
         private System.Windows.Forms.Button massButton;
         private System.Windows.Forms.Button abundanceButton;
         private System.Windows.Forms.Label addPromptLabel;
+        private System.Windows.Forms.TextBox amountInputBox;
+        private System.Windows.Forms.Label amountLabel;
+        private System.Windows.Forms.Label selectPromptLabel;
+        private System.Windows.Forms.ComboBox selectorComboBox;
+        private System.Windows.Forms.Label label1;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.ComboBox unitSelectorComboBox;
+        private System.Windows.Forms.Button addButton;
+        private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem;
     }
 }
 
