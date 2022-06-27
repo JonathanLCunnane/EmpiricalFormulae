@@ -34,6 +34,7 @@ namespace EmpiricalFormulae
             this.modeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.elementsModeButton = new System.Windows.Forms.ToolStripMenuItem();
             this.combustionProductsModeButton = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modeLabel = new System.Windows.Forms.Label();
             this.tableLabel = new System.Windows.Forms.Label();
@@ -48,7 +49,9 @@ namespace EmpiricalFormulae
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.unitSelectorComboBox = new System.Windows.Forms.ComboBox();
             this.addButton = new System.Windows.Forms.Button();
-            this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.calculateButton = new System.Windows.Forms.Button();
+            this.mrCheckBox = new System.Windows.Forms.CheckBox();
+            this.mrTextBox = new System.Windows.Forms.TextBox();
             this.mainMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -87,6 +90,13 @@ namespace EmpiricalFormulae
             this.combustionProductsModeButton.Size = new System.Drawing.Size(190, 22);
             this.combustionProductsModeButton.Text = "Combustion Products";
             this.combustionProductsModeButton.Click += new System.EventHandler(this.combustionProductsModeButton_Click);
+            // 
+            // resetToolStripMenuItem
+            // 
+            this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
+            this.resetToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.resetToolStripMenuItem.Text = "Reset";
+            this.resetToolStripMenuItem.Click += new System.EventHandler(this.resetToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -139,7 +149,7 @@ namespace EmpiricalFormulae
             this.addPromptLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addPromptLabel.Location = new System.Drawing.Point(323, 26);
             this.addPromptLabel.Name = "addPromptLabel";
-            this.addPromptLabel.Size = new System.Drawing.Size(94, 16);
+            this.addPromptLabel.Size = new System.Drawing.Size(93, 16);
             this.addPromptLabel.TabIndex = 5;
             this.addPromptLabel.Text = "Add MODE[0]:";
             // 
@@ -209,18 +219,42 @@ namespace EmpiricalFormulae
             this.addButton.UseVisualStyleBackColor = true;
             this.addButton.Click += new System.EventHandler(this.addButton_Click);
             // 
-            // resetToolStripMenuItem
+            // calculateButton
             // 
-            this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
-            this.resetToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
-            this.resetToolStripMenuItem.Text = "Reset";
-            this.resetToolStripMenuItem.Click += new System.EventHandler(this.resetToolStripMenuItem_Click);
+            this.calculateButton.Location = new System.Drawing.Point(326, 244);
+            this.calculateButton.Name = "calculateButton";
+            this.calculateButton.Size = new System.Drawing.Size(231, 23);
+            this.calculateButton.TabIndex = 13;
+            this.calculateButton.Text = "Calculate Empirical Formula";
+            this.calculateButton.UseVisualStyleBackColor = true;
+            // 
+            // mrCheckBox
+            // 
+            this.mrCheckBox.AutoSize = true;
+            this.mrCheckBox.Location = new System.Drawing.Point(326, 221);
+            this.mrCheckBox.Name = "mrCheckBox";
+            this.mrCheckBox.Size = new System.Drawing.Size(44, 17);
+            this.mrCheckBox.TabIndex = 14;
+            this.mrCheckBox.Text = "Mr: ";
+            this.mrCheckBox.UseVisualStyleBackColor = true;
+            this.mrCheckBox.CheckedChanged += new System.EventHandler(this.mrCheckBox_CheckedChanged);
+            // 
+            // mrTextBox
+            // 
+            this.mrTextBox.Enabled = false;
+            this.mrTextBox.Location = new System.Drawing.Point(371, 221);
+            this.mrTextBox.Name = "mrTextBox";
+            this.mrTextBox.Size = new System.Drawing.Size(100, 20);
+            this.mrTextBox.TabIndex = 15;
             // 
             // CalculatorWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 561);
+            this.Controls.Add(this.mrTextBox);
+            this.Controls.Add(this.mrCheckBox);
+            this.Controls.Add(this.calculateButton);
             this.Controls.Add(this.addButton);
             this.Controls.Add(this.unitSelectorComboBox);
             this.Controls.Add(this.label1);
@@ -268,6 +302,9 @@ namespace EmpiricalFormulae
         private System.Windows.Forms.ComboBox unitSelectorComboBox;
         private System.Windows.Forms.Button addButton;
         private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem;
+        private System.Windows.Forms.Button calculateButton;
+        private System.Windows.Forms.CheckBox mrCheckBox;
+        private System.Windows.Forms.TextBox mrTextBox;
     }
 }
 

@@ -14,6 +14,7 @@ namespace EmpiricalFormulae
     {
         string[] mode = new string[2] { "Element",  "Mass" };
         Dictionary<string, Button> subModeButtons = new Dictionary<string, Button>();
+        Dictionary<string, double> currentTableElements = new Dictionary<string, double>();
         Table table;
         public CalculatorWindow()
         {
@@ -48,6 +49,9 @@ namespace EmpiricalFormulae
             // Change table to new main mode
             table = new Table(mode[0], mode[1], "Units");
             tableLabel.Text = table.GetTableString();
+
+            // Clear the curr elements dict
+            currentTableElements.Clear();
 
             // Set mode label text
             modeLabel.Text = $"Mode: {mode[0]} => {mode[1]}";
@@ -116,20 +120,64 @@ namespace EmpiricalFormulae
                     );
                 return;
             }
-            
+
+            // Check that the amount inputted is an integer
+            string stramount = amountInputBox.Text;
+            double amount;
+            if (!double.TryParse(stramount, out amount))
+            {
+                MessageBox.Show($"In the 'Amount' field the inputted data must be a floating point decimal or integer.",
+                    "Incorrect Data Type",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                    );
+                return;
+            }
+
+            string element = selectorComboBox.SelectedItem.ToString();
+            string unit = unitSelectorComboBox.SelectedItem.ToString();
+
             // Add current data to table and clear the input fields
-            table.AddRow(selectorComboBox.SelectedItem.ToString(), amountInputBox.Text, unitSelectorComboBox.SelectedItem.ToString());
+            table.AddRow(element, amountInputBox.Text, unit);
             tableLabel.Text = table.GetTableString();
 
             // Clear current inputs and remove element
             selectorComboBox.Items.Remove(selectorComboBox.SelectedItem);
             amountInputBox.Text = "";
             unitSelectorComboBox.SelectedItem = null;
+
+            // Add element and mass to the curr elements dict
+            double mass; // Mass is converted into grams
+            switch (unit)
+            {
+                case "mg":
+                    mass = amount * Math.Pow(10, -3);
+                    break;
+                case "g":
+                    mass = amount;
+                    break;
+                case "kg":
+                    mass = amount * Math.Pow(10, 3);
+                    break;
+                case "t":
+                    mass = amount * Math.Pow(10, 6);
+                    break;
+                default:
+                    mass = 0;
+                    break;
+            }
+            currentTableElements.Add(element, mass);
         }
 
         private void resetToolStripMenuItem_Click(object sender, EventArgs e)
         {
             updateWindowWithCurrMode();
+        }
+
+        private void mrCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            // If the textbox is checked then allow Mr to be inputted and vice versa.
+            mrTextBox.Enabled = mrCheckBox.Checked;
         }
     }
 }
