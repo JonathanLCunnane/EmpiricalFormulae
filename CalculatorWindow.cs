@@ -179,5 +179,48 @@ namespace EmpiricalFormulae
             // If the textbox is checked then allow Mr to be inputted and vice versa.
             mrTextBox.Enabled = mrCheckBox.Checked;
         }
+
+        private void calculateButton_Click(object sender, EventArgs e)
+        {
+            // Firstly check if there is an element in the table and that there is an inputted Mr if enabled
+            List<string> fields = new List<string>();
+            if (mrTextBox.Enabled)
+            {
+                if (mrTextBox.Text == null || mrTextBox.Text == "")
+                {
+                    fields.Add("An Mr needs to be inputted if the text box is enabled. Uncheck the Mr check box if you do not want to enter an Mr.");
+                }
+            }
+            if (currentTableElements.Count == 0)
+            {
+                fields.Add($"There needs to be at least one '{mode[0]}' in the table.");
+            }
+            if (fields.Count != 0)
+            {
+                string fieldsstr = "";
+                fields.ForEach(field => fieldsstr += $"- {field}\n");
+                MessageBox.Show($"The following field(s) need to have some action taken on them before a calculation is carried out:\n{fieldsstr}",
+                    "Insufficient Data",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                    );
+                return;
+            }
+            // Next, check if the Mr textbox has the correct data type (if any) if it is enabled.
+            double mr;
+            if (mrTextBox.Enabled)
+            {
+                if (!double.TryParse(mrTextBox.Text, out mr))
+                {
+                    MessageBox.Show($"In the 'Mr' field the inputted data must be a floating point decimal or integer.",
+                    "Incorrect Data Type",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                    );
+                    return;
+                }
+            }
+
+        }
     }
 }

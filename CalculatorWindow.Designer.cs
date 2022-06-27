@@ -227,6 +227,7 @@ namespace EmpiricalFormulae
             this.calculateButton.TabIndex = 13;
             this.calculateButton.Text = "Calculate Empirical Formula";
             this.calculateButton.UseVisualStyleBackColor = true;
+            this.calculateButton.Click += new System.EventHandler(this.calculateButton_Click);
             // 
             // mrCheckBox
             // 
