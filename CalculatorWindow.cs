@@ -221,6 +221,9 @@ namespace EmpiricalFormulae
                 }
             }
 
+            // Calculate the empirical formula of the compound
+            resultLabel.Text = Calculator.FormulaFromElements(currentTableElements);
+
         }
     }
 }

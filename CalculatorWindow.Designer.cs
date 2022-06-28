@@ -52,6 +52,8 @@ namespace EmpiricalFormulae
             this.calculateButton = new System.Windows.Forms.Button();
             this.mrCheckBox = new System.Windows.Forms.CheckBox();
             this.mrTextBox = new System.Windows.Forms.TextBox();
+            this.resultPromptLabel = new System.Windows.Forms.Label();
+            this.resultLabel = new System.Windows.Forms.Label();
             this.mainMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -149,7 +151,7 @@ namespace EmpiricalFormulae
             this.addPromptLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addPromptLabel.Location = new System.Drawing.Point(323, 26);
             this.addPromptLabel.Name = "addPromptLabel";
-            this.addPromptLabel.Size = new System.Drawing.Size(93, 16);
+            this.addPromptLabel.Size = new System.Drawing.Size(94, 16);
             this.addPromptLabel.TabIndex = 5;
             this.addPromptLabel.Text = "Add MODE[0]:";
             // 
@@ -248,11 +250,31 @@ namespace EmpiricalFormulae
             this.mrTextBox.Size = new System.Drawing.Size(100, 20);
             this.mrTextBox.TabIndex = 15;
             // 
+            // resultPromptLabel
+            // 
+            this.resultPromptLabel.AutoSize = true;
+            this.resultPromptLabel.Location = new System.Drawing.Point(326, 274);
+            this.resultPromptLabel.Name = "resultPromptLabel";
+            this.resultPromptLabel.Size = new System.Drawing.Size(40, 13);
+            this.resultPromptLabel.TabIndex = 16;
+            this.resultPromptLabel.Text = "Result:";
+            // 
+            // resultLabel
+            // 
+            this.resultLabel.AutoSize = true;
+            this.resultLabel.Location = new System.Drawing.Point(329, 291);
+            this.resultLabel.MaximumSize = new System.Drawing.Size(200, 0);
+            this.resultLabel.Name = "resultLabel";
+            this.resultLabel.Size = new System.Drawing.Size(0, 13);
+            this.resultLabel.TabIndex = 17;
+            // 
             // CalculatorWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 561);
+            this.Controls.Add(this.resultLabel);
+            this.Controls.Add(this.resultPromptLabel);
             this.Controls.Add(this.mrTextBox);
             this.Controls.Add(this.mrCheckBox);
             this.Controls.Add(this.calculateButton);
@@ -306,6 +328,8 @@ namespace EmpiricalFormulae
         private System.Windows.Forms.Button calculateButton;
         private System.Windows.Forms.CheckBox mrCheckBox;
         private System.Windows.Forms.TextBox mrTextBox;
+        private System.Windows.Forms.Label resultPromptLabel;
+        private System.Windows.Forms.Label resultLabel;
     }
 }
 
