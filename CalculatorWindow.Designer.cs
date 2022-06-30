@@ -46,7 +46,6 @@ namespace EmpiricalFormulae
             this.selectPromptLabel = new System.Windows.Forms.Label();
             this.selectorComboBox = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.unitSelectorComboBox = new System.Windows.Forms.ComboBox();
             this.addButton = new System.Windows.Forms.Button();
             this.calculateButton = new System.Windows.Forms.Button();
@@ -262,10 +261,11 @@ namespace EmpiricalFormulae
             // resultLabel
             // 
             this.resultLabel.AutoSize = true;
+            this.resultLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.resultLabel.Location = new System.Drawing.Point(329, 291);
             this.resultLabel.MaximumSize = new System.Drawing.Size(200, 0);
             this.resultLabel.Name = "resultLabel";
-            this.resultLabel.Size = new System.Drawing.Size(0, 13);
+            this.resultLabel.Size = new System.Drawing.Size(0, 24);
             this.resultLabel.TabIndex = 17;
             // 
             // CalculatorWindow
@@ -321,7 +321,6 @@ namespace EmpiricalFormulae
         private System.Windows.Forms.Label selectPromptLabel;
         private System.Windows.Forms.ComboBox selectorComboBox;
         private System.Windows.Forms.Label label1;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.ComboBox unitSelectorComboBox;
         private System.Windows.Forms.Button addButton;
         private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem;

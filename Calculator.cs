@@ -32,7 +32,6 @@ namespace EmpiricalFormulae
                     if (currVariance > maxVariance)
                     {
                         maxVariance = currVariance;
-                        Console.WriteLine(currVariance);
                     }
                 }
 
@@ -42,13 +41,25 @@ namespace EmpiricalFormulae
                     string result = "";
                     foreach (KeyValuePair<string, double> kvp in temp)
                     {
-                        result += $"{kvp.Key}{Math.Round(kvp.Value)} ";
+                        result += $"{kvp.Key}{SubscriptString((int)Math.Round(kvp.Value))} ";
                     }
                     return result;
                 }
             }
-            return "None found";
+            return "None found with 'maxVariance' of 0.02 within given computing time.";
         }
         
+        static string SubscriptString(int n)
+        {
+            string strn = n.ToString();
+            string str = "";
+            for (int i = 0; i < strn.Length; i++)
+            {
+                // Note that since this function will only be called from within this class that no 'try parsing' is needed before casting.
+                str += Consts.subscripts[int.Parse(strn[i].ToString())];
+            }
+            Console.WriteLine($"{str}, {n}");
+            return str;
+        }
     }
 }
