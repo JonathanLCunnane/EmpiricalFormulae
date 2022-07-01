@@ -19,55 +19,94 @@ namespace EmpiricalFormulae
             // To find the ratio between the elements multiply the moles by each value between 1 and 100.
             // When the variance from a whole number of ALL the elements is at max of 0.02 then that empirical formula is given.
             Dictionary<string, double> temp = new Dictionary<string, double>();
-            double maxVariance;
-            double currVariance;
-            for (int n = 1; n <= 100; n++)
+            bool[] currDPS;
+            bool[] foundDPS = new bool[3]
+            {
+                false,
+                false,
+                false
+            };
+            int rounded;
+            string result = "";
+            for (int n = 1; n <= 1000; n++)
             {
                 temp.Clear();
                 temp = elements.ToDictionary(kvp => kvp.Key, kvp => kvp.Value * n);
-                maxVariance = 0;
+                currDPS = new bool[foundDPS.Length];
+                for (int i = 0; i < foundDPS.Length; i++)
+                {
+                    currDPS[i] = !foundDPS[i];
+                }
                 foreach (KeyValuePair<string, double> kvp in temp)
                 {
-                    currVariance = Math.Abs(kvp.Value - Math.Round(kvp.Value)) / kvp.Value;
-                    if (currVariance > maxVariance)
+                    rounded = (int)Math.Round(kvp.Value);
+                    if (Math.Round(kvp.Value, 1) != rounded & !foundDPS[0])
                     {
-                        maxVariance = currVariance;
+                        currDPS[0] = false;
+                        currDPS[1] = false;
+                        currDPS[2] = false;
+                    }
+                    else if (Math.Round(kvp.Value, 2) != rounded & !foundDPS[1])
+                    {
+                        currDPS[1] = false;
+                        currDPS[2] = false;
+                    }
+                    else if (Math.Round(kvp.Value, 3) != rounded & !foundDPS[2])
+                    {
+                        currDPS[2] = false;
                     }
                 }
 
-                // If the maxVariance is at max of 0.02 then return the rounded 
-                if (maxVariance <= 0.02)
+                // Check if the current temp compound is at a certain amount of DP and add to the result
+                if (currDPS[0])
                 {
-                    return FormatCompound(temp);
+                    foundDPS[0] = true;
+                    result += $"1.d.p accuracy: {FormatCompound(temp)}\n";
+                }
+                if (currDPS[1])
+                {
+                    foundDPS[1] = true;
+                    result += $"2.d.p accuracy: {FormatCompound(temp)}\n";
+                }
+                if (currDPS[2])
+                {
+                    foundDPS[2] = true;
+                    result += $"3.d.p accuracy: {FormatCompound(temp)}";
+                    return result;
                 }
             }
-            return "None found with 'maxVariance' of 0.02 within given computing time.";
+            if (result == "")
+            {
+                return "No empirical formula found within given computing time to a suitable degree of accuracy.";
+            }
+            return result;
         }
         
         static string FormatCompound(Dictionary<string, double> elements)
         {
             // This function will format the compound based on the 'Hill Sytstem' or 'Hill Notation'
             string soln = "";
-            if (elements.ContainsKey("C"))
+            Dictionary<string, double> temp = elements.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+            if (temp.ContainsKey("C"))
             {
-                soln += $"C{SubscriptString((int)Math.Round(elements["C"]))}";
-                elements.Remove("C");
-                if (elements.ContainsKey("H"))
+                soln += $"C{SubscriptString((int)Math.Round(temp["C"]))}";
+                temp.Remove("C");
+                if (temp.ContainsKey("H"))
                 {
-                    soln += $"H{SubscriptString((int)Math.Round(elements["H"]))}";
-                    elements.Remove("H");
+                    soln += $"H{SubscriptString((int)Math.Round(temp["H"]))}";
+                    temp.Remove("H");
                 }
             }
             // Add each element in alphabetical order if present in compound
             foreach(string element in Consts.order)
             {
-                if (elements.ContainsKey(element))
+                if (temp.ContainsKey(element))
                 {
-                    soln += $"{element}{SubscriptString((int)Math.Round(elements[element]))}";
-                    elements.Remove(element);
+                    soln += $"{element}{SubscriptString((int)Math.Round(temp[element]))}";
+                    temp.Remove(element);
                 }
                 // Break if there are no elements left
-                if (elements.Count == 0)
+                if (temp.Count == 0)
                 {
                     break;
                 }
@@ -77,6 +116,11 @@ namespace EmpiricalFormulae
 
         static string SubscriptString(int n)
         {
+            // If n is 1 then return an empty string as you do not need a subscript in this case.
+            if (n == 1)
+            {
+                return "";
+            }
             string strn = n.ToString();
             string str = "";
             for (int i = 0; i < strn.Length; i++)

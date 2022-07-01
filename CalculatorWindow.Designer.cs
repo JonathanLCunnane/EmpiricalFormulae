@@ -261,11 +261,11 @@ namespace EmpiricalFormulae
             // resultLabel
             // 
             this.resultLabel.AutoSize = true;
-            this.resultLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.resultLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.resultLabel.Location = new System.Drawing.Point(329, 291);
             this.resultLabel.MaximumSize = new System.Drawing.Size(200, 0);
             this.resultLabel.Name = "resultLabel";
-            this.resultLabel.Size = new System.Drawing.Size(0, 24);
+            this.resultLabel.Size = new System.Drawing.Size(0, 20);
             this.resultLabel.TabIndex = 17;
             // 
             // CalculatorWindow

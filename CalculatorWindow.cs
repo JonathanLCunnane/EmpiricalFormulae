@@ -34,16 +34,18 @@ namespace EmpiricalFormulae
             if (mode[1] == "Mass")
             {
                 subModeButtons["Abundance"].Enabled = true;
-                selectorComboBox.Items.Clear();
-                foreach (string element in Consts.elements.Keys)
-                {
-                    selectorComboBox.Items.Add(element);
-                }
             }
             // If new mode is Abundance enable Mass button
             else
             {
                 subModeButtons["Mass"].Enabled = true;
+            }
+
+            // Reset the element selector combo box.
+            selectorComboBox.Items.Clear();
+            foreach (string element in Consts.elements.Keys)
+            {
+                selectorComboBox.Items.Add(element);
             }
 
             // Change table to new main mode
@@ -59,6 +61,9 @@ namespace EmpiricalFormulae
             // Set prompt text
             addPromptLabel.Text = $"Add {mode[0]}:";
             selectPromptLabel.Text = $"Select {mode[0]}:";
+
+            // Clear the result label
+            resultLabel.Text = "";
         }
 
         private void abundanceButton_Click(object sender, EventArgs e)
