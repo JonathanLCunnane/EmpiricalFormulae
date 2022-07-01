@@ -49,8 +49,6 @@ namespace EmpiricalFormulae
             this.unitSelectorComboBox = new System.Windows.Forms.ComboBox();
             this.addButton = new System.Windows.Forms.Button();
             this.calculateButton = new System.Windows.Forms.Button();
-            this.mrCheckBox = new System.Windows.Forms.CheckBox();
-            this.mrTextBox = new System.Windows.Forms.TextBox();
             this.resultPromptLabel = new System.Windows.Forms.Label();
             this.resultLabel = new System.Windows.Forms.Label();
             this.mainMenu.SuspendLayout();
@@ -202,8 +200,9 @@ namespace EmpiricalFormulae
             this.unitSelectorComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.unitSelectorComboBox.FormattingEnabled = true;
             this.unitSelectorComboBox.Items.AddRange(new object[] {
-            "g",
             "mg",
+            "g",
+            "kg",
             "t"});
             this.unitSelectorComboBox.Location = new System.Drawing.Point(436, 127);
             this.unitSelectorComboBox.Name = "unitSelectorComboBox";
@@ -222,7 +221,7 @@ namespace EmpiricalFormulae
             // 
             // calculateButton
             // 
-            this.calculateButton.Location = new System.Drawing.Point(326, 244);
+            this.calculateButton.Location = new System.Drawing.Point(326, 183);
             this.calculateButton.Name = "calculateButton";
             this.calculateButton.Size = new System.Drawing.Size(231, 23);
             this.calculateButton.TabIndex = 13;
@@ -230,29 +229,10 @@ namespace EmpiricalFormulae
             this.calculateButton.UseVisualStyleBackColor = true;
             this.calculateButton.Click += new System.EventHandler(this.calculateButton_Click);
             // 
-            // mrCheckBox
-            // 
-            this.mrCheckBox.AutoSize = true;
-            this.mrCheckBox.Location = new System.Drawing.Point(326, 221);
-            this.mrCheckBox.Name = "mrCheckBox";
-            this.mrCheckBox.Size = new System.Drawing.Size(44, 17);
-            this.mrCheckBox.TabIndex = 14;
-            this.mrCheckBox.Text = "Mr: ";
-            this.mrCheckBox.UseVisualStyleBackColor = true;
-            this.mrCheckBox.CheckedChanged += new System.EventHandler(this.mrCheckBox_CheckedChanged);
-            // 
-            // mrTextBox
-            // 
-            this.mrTextBox.Enabled = false;
-            this.mrTextBox.Location = new System.Drawing.Point(371, 221);
-            this.mrTextBox.Name = "mrTextBox";
-            this.mrTextBox.Size = new System.Drawing.Size(100, 20);
-            this.mrTextBox.TabIndex = 15;
-            // 
             // resultPromptLabel
             // 
             this.resultPromptLabel.AutoSize = true;
-            this.resultPromptLabel.Location = new System.Drawing.Point(326, 274);
+            this.resultPromptLabel.Location = new System.Drawing.Point(326, 213);
             this.resultPromptLabel.Name = "resultPromptLabel";
             this.resultPromptLabel.Size = new System.Drawing.Size(40, 13);
             this.resultPromptLabel.TabIndex = 16;
@@ -262,7 +242,7 @@ namespace EmpiricalFormulae
             // 
             this.resultLabel.AutoSize = true;
             this.resultLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.resultLabel.Location = new System.Drawing.Point(329, 291);
+            this.resultLabel.Location = new System.Drawing.Point(329, 230);
             this.resultLabel.MaximumSize = new System.Drawing.Size(200, 0);
             this.resultLabel.Name = "resultLabel";
             this.resultLabel.Size = new System.Drawing.Size(0, 20);
@@ -275,8 +255,6 @@ namespace EmpiricalFormulae
             this.ClientSize = new System.Drawing.Size(584, 561);
             this.Controls.Add(this.resultLabel);
             this.Controls.Add(this.resultPromptLabel);
-            this.Controls.Add(this.mrTextBox);
-            this.Controls.Add(this.mrCheckBox);
             this.Controls.Add(this.calculateButton);
             this.Controls.Add(this.addButton);
             this.Controls.Add(this.unitSelectorComboBox);
@@ -325,8 +303,6 @@ namespace EmpiricalFormulae
         private System.Windows.Forms.Button addButton;
         private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem;
         private System.Windows.Forms.Button calculateButton;
-        private System.Windows.Forms.CheckBox mrCheckBox;
-        private System.Windows.Forms.TextBox mrTextBox;
         private System.Windows.Forms.Label resultPromptLabel;
         private System.Windows.Forms.Label resultLabel;
     }

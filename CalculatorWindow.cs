@@ -30,15 +30,18 @@ namespace EmpiricalFormulae
         {
             // Disable curr modes button
             subModeButtons[mode[1]].Enabled = false;
-            // If new mode is Mass enable Abundance button and return all elements to the selector.
+            // If new mode is Mass enable Abundance button and enable units.
             if (mode[1] == "Mass")
             {
                 subModeButtons["Abundance"].Enabled = true;
+                unitSelectorComboBox.Enabled = true;
             }
-            // If new mode is Abundance enable Mass button
+            // If new mode is Abundance enable Mass button and disable units.
             else
             {
                 subModeButtons["Mass"].Enabled = true;
+                unitSelectorComboBox.Enabled = false;
+                unitSelectorComboBox.SelectedItem = null;
             }
 
             // Reset the element selector combo box.
@@ -110,7 +113,7 @@ namespace EmpiricalFormulae
             {
                 fields.Add("Amount");
             }
-            if (unitSelectorComboBox.SelectedItem == null)
+            if (unitSelectorComboBox.SelectedItem == null & mode[1] != "Abundance")
             {
                 fields.Add("Units");
             }
@@ -140,7 +143,16 @@ namespace EmpiricalFormulae
             }
 
             string element = selectorComboBox.SelectedItem.ToString();
-            string unit = unitSelectorComboBox.SelectedItem.ToString();
+            string unit;
+            // Override units if abundance mode is being used
+            if (mode[1] == "Abundance")
+            {
+                unit = "%";
+            }
+            else
+            {
+                unit = unitSelectorComboBox.SelectedItem.ToString();
+            }
 
             // Add current data to table and clear the input fields
             table.AddRow(element, amountInputBox.Text, unit);
@@ -179,26 +191,18 @@ namespace EmpiricalFormulae
             updateWindowWithCurrMode();
         }
 
-        private void mrCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            // If the textbox is checked then allow Mr to be inputted and vice versa.
-            mrTextBox.Enabled = mrCheckBox.Checked;
-        }
-
         private void calculateButton_Click(object sender, EventArgs e)
         {
-            // Firstly check if there is an element in the table and that there is an inputted Mr if enabled
+            // Firstly check if there is an element in the table
             List<string> fields = new List<string>();
-            if (mrTextBox.Enabled)
-            {
-                if (mrTextBox.Text == null || mrTextBox.Text == "")
-                {
-                    fields.Add("An Mr needs to be inputted if the text box is enabled. Uncheck the Mr check box if you do not want to enter an Mr.");
-                }
-            }
             if (currentTableElements.Count == 0)
             {
                 fields.Add($"There needs to be at least one '{mode[0]}' in the table.");
+            }
+            // Check abundances add to 100% if the mode is Abundance
+            if (mode[1] == "Abundance")
+            {
+                // ADD THIS!
             }
             if (fields.Count != 0)
             {
@@ -210,20 +214,6 @@ namespace EmpiricalFormulae
                     MessageBoxIcon.Warning
                     );
                 return;
-            }
-            // Next, check if the Mr textbox has the correct data type (if any) if it is enabled.
-            double mr;
-            if (mrTextBox.Enabled)
-            {
-                if (!double.TryParse(mrTextBox.Text, out mr))
-                {
-                    MessageBox.Show($"In the 'Mr' field the inputted data must be a floating point decimal or integer.",
-                    "Incorrect Data Type",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                    );
-                    return;
-                }
             }
 
             // Calculate the empirical formula of the compound
