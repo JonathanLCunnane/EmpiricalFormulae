@@ -132,9 +132,20 @@ namespace EmpiricalFormulae
             // Check that the amount inputted is an integer
             string stramount = amountInputBox.Text;
             double amount;
+            // If entered data type is not a number.
             if (!double.TryParse(stramount, out amount))
             {
-                MessageBox.Show($"In the 'Amount' field the inputted data must be a floating point decimal or integer.",
+                MessageBox.Show($"In the 'Amount' field the inputted data must be a positive floating point decimal or integer.",
+                    "Incorrect Data Type",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                    );
+                return;
+            }
+            // OR if entered data type is zero or negative.
+            else if (amount <= 0)
+            {
+                MessageBox.Show($"In the 'Amount' field the inputted data must be a positive floating point decimal or integer.",
                     "Incorrect Data Type",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
@@ -155,7 +166,7 @@ namespace EmpiricalFormulae
             }
 
             // Add current data to table and clear the input fields
-            table.AddRow(element, amountInputBox.Text, unit);
+            table.AddRow(element, amount.ToString(), unit);
             tableLabel.Text = table.GetTableString();
 
             // Clear current inputs and remove element
@@ -178,6 +189,9 @@ namespace EmpiricalFormulae
                     break;
                 case "t":
                     mass = amount * Math.Pow(10, 6);
+                    break;
+                case "%":
+                    mass = amount;
                     break;
                 default:
                     mass = 0;
@@ -202,7 +216,20 @@ namespace EmpiricalFormulae
             // Check abundances add to 100% if the mode is Abundance
             if (mode[1] == "Abundance")
             {
-                // ADD THIS!
+                double totalAbundance = 0;
+                foreach (double abundance in currentTableElements.Values)
+                {
+                    totalAbundance += abundance;
+                }
+                // If total abundance is not 100
+                if (totalAbundance != 100)
+                {
+                    MessageBox.Show($"You entered '{mode[0]}s' with a total abundance of {totalAbundance}%. The total abundance must add to 100%.",
+                    "Total Abundance Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                    );
+                }
             }
             if (fields.Count != 0)
             {
