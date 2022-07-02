@@ -44,11 +44,21 @@ namespace EmpiricalFormulae
                 unitSelectorComboBox.SelectedItem = null;
             }
 
-            // Reset the element selector combo box.
+            // Reset the element selector combo box with elements or combustion products.
             selectorComboBox.Items.Clear();
-            foreach (string element in Consts.elements.Keys)
+            if (mode[0] == "Element")
             {
-                selectorComboBox.Items.Add(element);
+                foreach (string element in Consts.elements.Keys)
+                {
+                    selectorComboBox.Items.Add(element);
+                }
+            }
+            else
+            {
+                foreach (string combustionProducts in Consts.combustionProducts.Keys)
+                {
+                    selectorComboBox.Items.Add(combustionProducts);
+                }
             }
 
             // Change table to new main mode
@@ -65,8 +75,9 @@ namespace EmpiricalFormulae
             addPromptLabel.Text = $"Add {mode[0]}:";
             selectPromptLabel.Text = $"Select {mode[0]}:";
 
-            // Clear the result label
+            // Clear the result label and amount input field
             resultLabel.Text = "";
+            amountInputBox.Text = "";
         }
 
         private void abundanceButton_Click(object sender, EventArgs e)
@@ -153,8 +164,18 @@ namespace EmpiricalFormulae
                 return;
             }
 
-            string element = selectorComboBox.SelectedItem.ToString();
+            string species;
             string unit;
+            // If element mode is enabled then species is the text in the textbox.
+            // Otherwise its value is taken from the dictionary for combustion products.
+            if (mode[0] == "Element")
+            {
+                species = selectorComboBox.SelectedItem.ToString();
+            }
+            else
+            {
+                species = Consts.tableCombustionProducts[selectorComboBox.SelectedItem.ToString()];
+            }
             // Override units if abundance mode is being used
             if (mode[1] == "Abundance")
             {
@@ -164,15 +185,6 @@ namespace EmpiricalFormulae
             {
                 unit = unitSelectorComboBox.SelectedItem.ToString();
             }
-
-            // Add current data to table and clear the input fields
-            table.AddRow(element, amount.ToString(), unit);
-            tableLabel.Text = table.GetTableString();
-
-            // Clear current inputs and remove element
-            selectorComboBox.Items.Remove(selectorComboBox.SelectedItem);
-            amountInputBox.Text = "";
-            unitSelectorComboBox.SelectedItem = null;
 
             // Add element and mass to the curr elements dict
             double mass; // Mass is converted into grams
@@ -197,7 +209,45 @@ namespace EmpiricalFormulae
                     mass = 0;
                     break;
             }
-            currentTableElements.Add(element, mass);
+            // If in element mode, simply add the element and mass to the dictionary.
+            // Otherwise use the combustion products dictionary to calculate the corresponding masses of the elements of each combustion product.
+            if (mode[0] == "Element")
+            {
+                currentTableElements.Add(species, mass);
+            }
+            else
+            {
+                // Calculate Mr.
+                float mr = 0;
+                foreach (KeyValuePair<string, int> kvp in Consts.combustionProducts[selectorComboBox.SelectedItem.ToString()])
+                {
+                    mr += Consts.elements[kvp.Key] * kvp.Value;
+                }
+                // Calculate and add the mass of each of the elements.
+                foreach (KeyValuePair<string, int> kvp in Consts.combustionProducts[selectorComboBox.SelectedItem.ToString()])
+                {
+                    // If element is already in dict, simply add the masses.
+                    // Otherwise add entry to dict.
+                    double currMass = (mass * Consts.elements[kvp.Key] * kvp.Value) / mr;
+                    if (currentTableElements.ContainsKey(kvp.Key))
+                    {
+                        currentTableElements[kvp.Key] += currMass; 
+                    }
+                    else
+                    {
+                        currentTableElements.Add(kvp.Key, currMass);
+                    }      
+                }
+            }
+
+            // Add current data to table and clear the input fields
+            table.AddRow(species, amount.ToString(), unit);
+            tableLabel.Text = table.GetTableString();
+
+            // Clear current inputs and remove element
+            selectorComboBox.Items.Remove(selectorComboBox.SelectedItem);
+            amountInputBox.Text = "";
+            unitSelectorComboBox.SelectedItem = null;
         }
 
         private void resetToolStripMenuItem_Click(object sender, EventArgs e)
@@ -222,13 +272,14 @@ namespace EmpiricalFormulae
                     totalAbundance += abundance;
                 }
                 // If total abundance is not 100
-                if (totalAbundance != 100)
+                if (Math.Round(totalAbundance, 1) != 100)
                 {
-                    MessageBox.Show($"You entered '{mode[0]}s' with a total abundance of {totalAbundance}%. The total abundance must add to 100%.",
+                    MessageBox.Show($"You entered '{mode[0]}s' with a total abundance of ~{Math.Round(totalAbundance, 1)}%. The total abundance must add to 100%.",
                     "Total Abundance Error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning
                     );
+                    return;
                 }
             }
             if (fields.Count != 0)
@@ -241,6 +292,12 @@ namespace EmpiricalFormulae
                     MessageBoxIcon.Warning
                     );
                 return;
+            }
+
+            // If the mode is combustion products remove all oxygen from the current elements dictionary.
+            if (mode[0] == "Combustion Product")
+            {
+                currentTableElements.Remove("O");
             }
 
             // Calculate the empirical formula of the compound

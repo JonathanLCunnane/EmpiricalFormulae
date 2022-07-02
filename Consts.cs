@@ -265,5 +265,92 @@ namespace EmpiricalFormulae
             "Zn",
             "Zr"
         };
+
+        public static readonly Dictionary<string, Dictionary<string, int>> combustionProducts = new Dictionary<string, Dictionary<string, int>>()
+        {
+            {
+                "C",
+                new Dictionary<string, int>()
+                {
+                    {"C", 1 }
+                }
+            },
+            {
+                "CO",
+                new Dictionary<string, int>()
+                {
+                    {"C", 1 },
+                    {"O", 1 }
+                }
+            },
+            {
+                $"CO{subscripts[2]}",
+                new Dictionary<string, int>()
+                {
+                    {"C", 1 },
+                    {"O", 2 }
+                }
+            },
+            {
+                $"SO{subscripts[2]}",
+                new Dictionary<string, int>()
+                {
+                    {"S", 1 },
+                    {"O", 2 }
+                }
+            },
+            {
+                "NO",
+                new Dictionary<string, int>()
+                {
+                    {"N", 1 },
+                    {"O", 1 }
+                }
+            },
+            {
+                $"NO{subscripts[2]}",
+                new Dictionary<string, int>()
+                {
+                    {"N", 1 },
+                    {"O", 2 }
+                }
+            },
+            {
+                $"N{subscripts[2]}O",
+                new Dictionary<string, int>()
+                {
+                    {"N", 2 },
+                    {"O", 1 }
+                }
+            },
+            {
+                $"H{subscripts[2]}O",
+                new Dictionary<string, int>()
+                {
+                    {"H", 2 },
+                    {"O", 1 }
+                }
+            },
+            {
+                $"H{subscripts[2]}",
+                new Dictionary<string, int>()
+                {
+                    {"H", 2 }
+                }
+            }
+        };
+
+        public static readonly Dictionary<string, string> tableCombustionProducts = new Dictionary<string, string>()
+        {
+            {"C", "C" },
+            {"CO", "CO" },
+            {$"CO{subscripts[2]}", "CO2" },
+            {$"SO{subscripts[2]}", "SO2" },
+            {"NO", "NO" },
+            {$"NO{subscripts[2]}", "NO2" },
+            {$"N{subscripts[2]}O", "N2O" },
+            {$"H{subscripts[2]}O", "H2O" },
+            {$"H{subscripts[2]}", "H2" }
+        };
     }
 }
