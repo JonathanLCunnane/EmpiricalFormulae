@@ -102,6 +102,7 @@ namespace EmpiricalFormulae
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
+            this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
             // modeLabel
             // 
@@ -148,7 +149,7 @@ namespace EmpiricalFormulae
             this.addPromptLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addPromptLabel.Location = new System.Drawing.Point(323, 26);
             this.addPromptLabel.Name = "addPromptLabel";
-            this.addPromptLabel.Size = new System.Drawing.Size(94, 16);
+            this.addPromptLabel.Size = new System.Drawing.Size(93, 16);
             this.addPromptLabel.TabIndex = 5;
             this.addPromptLabel.Text = "Add MODE[0]:";
             // 

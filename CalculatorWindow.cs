@@ -304,5 +304,15 @@ namespace EmpiricalFormulae
             resultLabel.Text = Calculator.FormulaFromElements(currentTableElements);
 
         }
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Display a help popup window.
+            MessageBox.Show("- There are two main modes in this calculator:\n    + Firstly, element mode. You can enter the compsition by mass/abundance of all of the elements in a compound to calculate the empirical formula\n    + Secondly, combustion product mode. In this mode, you can enter the mass/abundance of all combustion products of a compound to calculate empirical formula. A limitation of this mode is that the compound cannot contain any oxygen atoms.\n\n\nOther things to note:\n- x d.p. of accuracy means that the ratio of all elements in the empirical formula rounded to x d.p. is the same as the nearest whole number ratio of elements.\n- The naming system used for output of the empirical formula is the 'Hill System'\n- The atomic masses of all of the elements used are to 2 d.p. where possible. Exceptions are Tellurium, which is given to 1 d.p., Einsteinium which is given to 3 s.f., and elements from Lawrencium to Oganesson which are given to 3 s.f. .",
+                "Help",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information
+                );
+        }
     }
 }

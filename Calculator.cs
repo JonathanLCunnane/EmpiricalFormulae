@@ -61,17 +61,17 @@ namespace EmpiricalFormulae
                 if (currDPS[0])
                 {
                     foundDPS[0] = true;
-                    result += $"1.d.p accuracy: {FormatCompound(temp)}\nMr:{getMr(temp)}\n\n";
+                    result += $"1 d.p. accuracy: {FormatCompound(temp)}\nMr:{getMr(temp)}\n\n";
                 }
                 if (currDPS[1])
                 {
                     foundDPS[1] = true;
-                    result += $"2.d.p accuracy: {FormatCompound(temp)}\nMr:{getMr(temp)}\n\n";
+                    result += $"2 d.p. accuracy: {FormatCompound(temp)}\nMr:{getMr(temp)}\n\n";
                 }
                 if (currDPS[2])
                 {
                     foundDPS[2] = true;
-                    result += $"3.d.p accuracy: {FormatCompound(temp)}\nMr:{getMr(temp)}";
+                    result += $"3 d.p. accuracy: {FormatCompound(temp)}\nMr:{getMr(temp)}";
                     return result;
                 }
             }
